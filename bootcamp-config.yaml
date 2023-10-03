@@ -1,0 +1,78 @@
+
+#
+#  Database configuration information
+
+database:
+  variant: mysql          # the type of database (mysql, postgres, oracle, etc)
+  server: localhost       # the hostname of the server
+  port: 3307              # the port the db-server is listening
+  username: root       # username for user with write privileges
+  password: admin       # password of the user
+  schema: documents       # database schema whose tables will be accessed
+  #
+  # The JDBC information
+  #
+  jdbc:
+    driver-class: com.mysql.cj.jdbc.Driver
+    jar-file: mysql-connector-j-8.0.32.jar
+    url-format: jdbc:mysql://{server}:{port}/{schema}
+
+#
+# Document source directory
+#
+documents:
+  source-dir: D:/SV/bootcamp/docs
+
+#
+# Spark details
+#
+spark:
+  spark-home: D:/spark/spark-3.4.0-bin-hadoop3
+
+
+#
+# Models
+#
+models:
+  multilingual-sentence-encoder: distiluse-base-multilingual-cased-v2
+#  multilingual-cross-encoder:  sentence-transformers/LaBSE
+  multilingual-cross-encoder: cross-encoder/stsb-distilroberta-base
+  spacy-model: en_core_web_sm
+  spacy-sentence-embedding-model: distiluse-base-multilingual-cased-v2
+  device: cpu
+  sentence-embedding:
+    normalize-embeddings: True
+
+text:
+  chunk-size: 500
+  chunk-similarity-threshold: 0.2
+
+#
+# Elastic-search
+#
+elasticsearch:
+  index_name: documents
+  password: dYA1lq1NtaGZ1zaoPylE
+  eshome: D:/elasticsearch/elasticsearch-8.9.2
+
+#
+# FAISS search
+#
+
+search:
+  faiss:
+    index_file: D:/SV/faiss/faiss_index_file
+    index_host: localhost
+    index_port: 8800
+
+#
+# Services
+#
+services:
+  search: http://localhost/search
+  clean_chunk: http://localhost:8800/chunker
+  es_index: https://localhost:9200
+  sentence_vectorizer: http://localhost:8800/embedding
+  faiss_search: http://localhost:8800/faiss_search
+  faiss_index_builder: http://localhost:8800/faiss_index_builder
+
